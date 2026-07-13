@@ -8,26 +8,24 @@ Convert CSV files into a SQLite database from the command line.
 pip install csvs-to-sqlite
 ```
 
-Basic usage:
+## Usage
+
 ```bash
 csvs-to-sqlite myfile.csv mydatabase.db
 ```
-This will create a new SQLite database called `mydatabase.db` containing a
-single table, `myfile`, containing the CSV content.
 
-You can provide multiple CSV files:
-```
+This creates `mydatabase.db` with a table named `myfile`.
+
+Pass several files to create several tables:
+
+```bash
 csvs-to-sqlite one.csv two.csv bundle.db
 ```
-The `bundle.db` database will contain two tables, `one` and `two`.
 
-This means you can use wildcards:
+Wildcards and directories are also supported:
+
 ```bash
 csvs-to-sqlite ~/Downloads/*.csv my-downloads.db
-```
-If you pass a path to one or more directories, the script will recursively
-search those directories for CSV files and create tables for each one.
-```bash
 csvs-to-sqlite ~/path/to/directory all-my-csvs.db
 ```
 ## Handling TSV (tab-separated values)

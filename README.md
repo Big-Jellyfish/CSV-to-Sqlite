@@ -1,14 +1,6 @@
 # csvs-to-sqlite
 
-[![PyPI](https://img.shields.io/pypi/v/csvs-to-sqlite.svg)](https://pypi.org/project/csvs-to-sqlite/)
-[![Changelog](https://img.shields.io/github/v/release/simonw/csvs-to-sqlite?include_prereleases&label=changelog)](https://github.com/simonw/csvs-to-sqlite/releases)
-[![Tests](https://github.com/simonw/csvs-to-sqlite/workflows/Test/badge.svg)](https://github.com/simonw/csvs-to-sqlite/actions?query=workflow%3ATest)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/simonw/csvs-to-sqlite/blob/main/LICENSE)
-
-Convert CSV files into a SQLite database. Browse and publish that SQLite database with [Datasette](https://github.com/simonw/datasette).
-
-> [!NOTE]
-> This tool is **infrequently maintained**. I suggest [using sqlite-utils](https://sqlite-utils.datasette.io/en/stable/cli.html#inserting-csv-or-tsv-data) for importing CSV and TSV to SQLite instead for most cases.
+Convert CSV files into a SQLite database from the command line.
 
 Basic usage:
 ```bash

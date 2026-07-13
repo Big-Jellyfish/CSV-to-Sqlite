@@ -28,71 +28,21 @@ Wildcards and directories are also supported:
 csvs-to-sqlite ~/Downloads/*.csv my-downloads.db
 csvs-to-sqlite ~/path/to/directory all-my-csvs.db
 ```
-## Handling TSV (tab-separated values)
+### TSV files
 
-You can use the `-s` option to specify a different delimiter. If you want
-to use a tab character you'll need to apply shell escaping like so:
+Use `-s` to set a different separator:
+
 ```bash
 csvs-to-sqlite my-file.tsv my-file.db -s $'\t'
 ```
-## Refactoring columns into separate lookup tables
 
-Let's say you have a CSV file that looks like this:
-```csv
-county,precinct,office,district,party,candidate,votes
-Clark,1,President,,REP,John R. Kasich,5
-Clark,2,President,,REP,John R. Kasich,0
-Clark,3,President,,REP,John R. Kasich,7
-```
-([Real example taken from the Open Elections project](https://github.com/openelections/openelections-data-sd/blob/master/2016/20160607__sd__primary__clark__precinct.csv))
+### Lookup tables
 
-You can now convert selected columns into separate lookup tables using the new
-`--extract-column` option (shortname: `-c`) - for example:
+Use `-c` to extract a column into a separate lookup table:
+
 ```bash
-csvs-to-sqlite openelections-data-*/*.csv \
-    -c county:County:name \
-    -c precinct:Precinct:name \
-    -c office -c district -c party -c candidate \
-    openelections.db
+csvs-to-sqlite data.csv -c category output.db
 ```
-The format is as follows:
-```bash
-column_name:optional_table_name:optional_table_value_column_name
-```
-If you just specify the column name e.g. `-c office`, the following table will
-be created:
-```sql
-CREATE TABLE "office" (
-    "id" INTEGER PRIMARY KEY,
-    "value" TEXT
-);
-```
-If you specify all three options, e.g. `-c precinct:Precinct:name` the table
-will look like this:
-```sql
-CREATE TABLE "Precinct" (
-    "id" INTEGER PRIMARY KEY,
-    "name" TEXT
-);
-```
-The original tables will be created like this:
-```sql
-CREATE TABLE "ca__primary__san_francisco__precinct" (
-    "county" INTEGER,
-    "precinct" INTEGER,
-    "office" INTEGER,
-    "district" INTEGER,
-    "party" INTEGER,
-    "candidate" INTEGER,
-    "votes" INTEGER,
-    FOREIGN KEY (county) REFERENCES County(id),
-    FOREIGN KEY (party) REFERENCES party(id),
-    FOREIGN KEY (precinct) REFERENCES Precinct(id),
-    FOREIGN KEY (office) REFERENCES office(id),
-    FOREIGN KEY (candidate) REFERENCES candidate(id)
-);
-```
-They will be populated with IDs that reference the new derived tables.
 
 ## csvs-to-sqlite --help
 

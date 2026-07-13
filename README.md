@@ -2,6 +2,12 @@
 
 Convert CSV files into a SQLite database from the command line.
 
+## Installation
+
+```bash
+pip install csvs-to-sqlite
+```
+
 Basic usage:
 ```bash
 csvs-to-sqlite myfile.csv mydatabase.db
@@ -89,17 +95,6 @@ CREATE TABLE "ca__primary__san_francisco__precinct" (
 );
 ```
 They will be populated with IDs that reference the new derived tables.
-
-## Installation
-
-```bash
-pip install csvs-to-sqlite
-```
-
-`csvs-to-sqlite` now requires Python 3. If you are running Python 2 you can install the last version to support Python 2:
-```bash
-pip install csvs-to-sqlite==0.9.2
-```
 
 ## csvs-to-sqlite --help
 
